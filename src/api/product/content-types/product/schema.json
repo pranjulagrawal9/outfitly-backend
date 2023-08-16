@@ -51,6 +51,16 @@
       ],
       "default": "all",
       "required": true
+    },
+    "bestseller": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "trending": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
