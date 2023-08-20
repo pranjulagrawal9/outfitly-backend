@@ -61,6 +61,12 @@
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "maincategories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::maincategory.maincategory",
+      "inversedBy": "products"
     }
   }
 }
