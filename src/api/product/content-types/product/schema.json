@@ -67,6 +67,12 @@
       "relation": "manyToMany",
       "target": "api::maincategory.maincategory",
       "inversedBy": "products"
+    },
+    "recommendedScore": {
+      "type": "float"
+    },
+    "popularityScore": {
+      "type": "float"
     }
   }
 }
