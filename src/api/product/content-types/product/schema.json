@@ -42,16 +42,6 @@
       "target": "api::category.category",
       "inversedBy": "products"
     },
-    "gender": {
-      "type": "enumeration",
-      "enum": [
-        "Male",
-        "Female",
-        "all"
-      ],
-      "default": "all",
-      "required": true
-    },
     "bestseller": {
       "type": "boolean",
       "default": false,
@@ -77,6 +67,23 @@
     "slug": {
       "type": "uid",
       "targetField": "title"
+    },
+    "details": {
+      "type": "json",
+      "required": true
+    },
+    "availableSizes": {
+      "type": "customField",
+      "options": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL"
+      ],
+      "required": true,
+      "customField": "plugin::multi-select.multi-select"
     }
   }
 }
