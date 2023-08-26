@@ -73,6 +73,10 @@
     },
     "popularityScore": {
       "type": "float"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }
