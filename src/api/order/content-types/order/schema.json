@@ -23,6 +23,10 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "orders"
+    },
+    "stripeId": {
+      "type": "text",
+      "required": true
     }
   }
 }
