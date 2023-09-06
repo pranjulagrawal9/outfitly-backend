@@ -1,9 +1,65 @@
-'use strict';
+"use strict";
 
 /**
  * order controller
  */
 
-const { createCoreController } = require('@strapi/strapi').factories;
+// @ts-ignore
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-module.exports = createCoreController('api::order.order');
+const { createCoreController } = require("@strapi/strapi").factories;
+
+module.exports = createCoreController("api::order.order", ({ strapi }) => ({
+  async create(ctx) {
+    console.log(ctx.request.body);
+    const { products } = ctx.request.body;
+    console.log(products);
+    console.log(ctx.state.user);
+    try {
+      const productIds = products.map((product) => product.id);
+      const lineItems = await Promise.all(
+        products.map(async (product) => {
+          const item = await strapi
+            .service("api::product.product")
+            .findOne(product.id);
+
+          return {
+            price_data: {
+              currency: "inr",
+              product_data: {
+                name: item.title,
+                // images: ["http://localhost:1337"+product.images.data[0].attributes.url]
+                images: [
+                  "https://images.bewakoof.com/t640/leader-full-sleeve-t-shirt-black-296657-1655834499-1.jpg",
+                ],
+              },
+              unit_amount: item.price * 100,
+            },
+            quantity: product.qty,
+          };
+        })
+      );
+
+      const session = await stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: "payment",
+        success_url: process.env.CLIENT_URL + "?success=true",
+        cancel_url: process.env.CLIENT_URL + "?success=false",
+      });
+
+      // await strapi.service("api::order.order").create({
+      //   data: {
+      //     users_permissions_user: ctx.state.user.id,
+      //     products: productIds,
+      //     stripeId: session.id,
+      //   },
+      // });
+
+      return { stripeSession: session };
+    } catch (error) {
+      console.log(error);
+      ctx.response.status = 500;
+      return error;
+    }
+  },
+}));
