@@ -12,21 +12,23 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "products": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::product.product",
-      "inversedBy": "orders"
-    },
     "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "orders"
     },
-    "stripeId": {
+    "payment_id": {
       "type": "text",
-      "required": false
+      "required": true
+    },
+    "products": {
+      "type": "json",
+      "required": true
+    },
+    "total": {
+      "type": "float",
+      "required": true
     }
   }
 }

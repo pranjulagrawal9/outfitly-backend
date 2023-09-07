@@ -11,10 +11,7 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
-    console.log(ctx.request.body);
     const { products } = ctx.request.body;
-    console.log(products);
-    console.log(ctx.state.user);
     try {
       const productIds = products.map((product) => product.id);
       const lineItems = await Promise.all(
@@ -32,6 +29,10 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
                 images: [
                   "https://images.bewakoof.com/t640/leader-full-sleeve-t-shirt-black-296657-1655834499-1.jpg",
                 ],
+                metadata: {
+                  productId: product.id,
+                  mrp: product.mrp,
+                },
               },
               unit_amount: item.price * 100,
             },
@@ -45,15 +46,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         mode: "payment",
         success_url: process.env.CLIENT_URL + "?success=true",
         cancel_url: process.env.CLIENT_URL + "?success=false",
+        client_reference_id: ctx.state.user.id,
       });
-
-      // await strapi.service("api::order.order").create({
-      //   data: {
-      //     users_permissions_user: ctx.state.user.id,
-      //     products: productIds,
-      //     stripeId: session.id,
-      //   },
-      // });
 
       return { stripeSession: session };
     } catch (error) {

@@ -88,12 +88,6 @@
     "mrp": {
       "type": "integer",
       "required": true
-    },
-    "orders": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::order.order",
-      "mappedBy": "products"
     }
   }
 }

@@ -1,9 +1,9 @@
 module.exports = {
   routes: [
     {
-      method: "GET",
+      method: "POST",
       path: "/webhook",
-      handler: "webhook.hello",
+      handler: "webhook.saveToDB",
       config: {
         auth: false,
       },
