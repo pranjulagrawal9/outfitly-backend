@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "orders"
-    },
     "payment_id": {
       "type": "text",
       "required": true
@@ -28,6 +22,10 @@
     },
     "total": {
       "type": "float",
+      "required": true
+    },
+    "user_id": {
+      "type": "biginteger",
       "required": true
     }
   }

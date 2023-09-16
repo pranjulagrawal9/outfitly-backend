@@ -56,4 +56,16 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       return error;
     }
   },
+
+  async find(ctx) {
+    const user = ctx.state.user;
+    console.log(ctx.query);
+    ctx.query.filters = {
+      ...(ctx.query.filters || {}),
+      user_id: user.id,
+    };
+    console.log(ctx.query.filters);
+    // @ts-ignore
+    return super.find(ctx);
+  },
 }));

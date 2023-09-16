@@ -49,7 +49,7 @@ module.exports = {
       // save order to db
       await strapi.service("api::order.order").create({
         data: {
-          users_permissions_user: user_id,
+          user_id,
           products: JSON.stringify(products),
           payment_id,
           total,
