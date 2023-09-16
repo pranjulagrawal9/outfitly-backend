@@ -35,6 +35,7 @@ module.exports = {
         productId: lineItem.price.product.metadata.productId,
         quantity: lineItem.quantity,
         mrp: lineItem.price.product.metadata.mrp,
+        size: lineItem.price.product.metadata.size,
         price: lineItem.price.unit_amount / 100,
         image: lineItem.price.product.images[0],
         title: lineItem.price.product.name,
@@ -57,6 +58,6 @@ module.exports = {
     }
 
     ctx.response.status = 200;
-    ctx.response.message= "Order saved to DB"
+    ctx.response.message = "Order saved to DB";
   },
 };

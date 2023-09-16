@@ -13,7 +13,6 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
     const { products } = ctx.request.body;
     try {
-      const productIds = products.map((product) => product.id);
       const lineItems = await Promise.all(
         products.map(async (product) => {
           const item = await strapi
@@ -32,6 +31,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
                 metadata: {
                   productId: product.id,
                   mrp: product.mrp,
+                  size: product.selectedSize,
                 },
               },
               unit_amount: item.price * 100,
