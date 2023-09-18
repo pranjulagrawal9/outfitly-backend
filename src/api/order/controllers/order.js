@@ -47,6 +47,10 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         success_url: process.env.CLIENT_URL + "/orderstatus?success=true",
         cancel_url: process.env.CLIENT_URL + "/orderstatus?success=false",
         client_reference_id: ctx.state.user.id,
+        billing_address_collection: "required",
+        shipping_address_collection: {
+          allowed_countries: ["US", "CA", "IN", "DE"],
+        },
       });
 
       return { stripeSession: session };
