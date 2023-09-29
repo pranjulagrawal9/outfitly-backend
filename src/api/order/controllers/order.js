@@ -24,9 +24,9 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
               currency: "inr",
               product_data: {
                 name: item.title,
-                // images: ["http://localhost:1337"+product.images.data[0].attributes.url]
                 images: [
-                  "https://images.bewakoof.com/t640/leader-full-sleeve-t-shirt-black-296657-1655834499-1.jpg",
+                  process.env.ABSOLUTE_SERVER_URL +
+                    product.images.data[0].attributes.url,
                 ],
                 metadata: {
                   productId: product.id,
