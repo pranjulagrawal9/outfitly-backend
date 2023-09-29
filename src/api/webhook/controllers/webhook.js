@@ -2,8 +2,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const unparsed = require("koa-body/unparsed.js");
 
-const endpointSecret =
-  "whsec_897701000b24e5391d5cf2a09822533a82a2561103d3f768b4df077246317a96";
+const endpointSecret = process.env.WEBHOOK_ENDPOINT_SECRET;
 
 module.exports = {
   async saveToDB(ctx) {
