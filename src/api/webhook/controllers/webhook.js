@@ -27,9 +27,6 @@ module.exports = {
           expand: ["line_items.data.price.product"],
         }
       );
-      // console.log(sessionWithLineItems);
-      // console.log(sessionWithLineItems.line_items);
-      // console.log(sessionWithLineItems.line_items.data[0].price);
       const products = sessionWithLineItems.line_items.data.map((lineItem) => ({
         productId: lineItem.price.product.metadata.productId,
         quantity: lineItem.quantity,
@@ -39,11 +36,9 @@ module.exports = {
         image: lineItem.price.product.images[0],
         title: lineItem.price.product.name,
       }));
-      console.log(products);
       const total = sessionWithLineItems.amount_total / 100;
       const payment_id = sessionWithLineItems.payment_intent;
       const user_id = sessionWithLineItems.client_reference_id;
-      console.log(total, payment_id, user_id);
 
       // save order to db
       await strapi.service("api::order.order").create({

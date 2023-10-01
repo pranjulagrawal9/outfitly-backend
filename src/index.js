@@ -28,13 +28,12 @@ module.exports = {
           .request();
 
         const { body } = res;
-        console.log(body);
 
         return {
           email: body.email,
           name: body.name,
           provider: "google",
-          username: body.email
+          username: body.email,
         };
       });
   },

@@ -24,10 +24,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
               currency: "inr",
               product_data: {
                 name: item.title,
-                images: [
-                  process.env.ABSOLUTE_SERVER_URL +
-                    product.images.data[0].attributes.url,
-                ],
+                images: [product.images.data[0].attributes.url],
                 metadata: {
                   productId: product.id,
                   mrp: product.mrp,
